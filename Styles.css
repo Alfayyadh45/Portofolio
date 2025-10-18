@@ -1,0 +1,237 @@
+html,body {
+    width: 100%;
+    color: white;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+/* bagian header ny */
+
+header {
+    width: 5%;
+    height: 100%;
+    background-color: #000;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left:0;
+}
+
+header ul {
+    display: flex;
+    gap: 70px;
+    margin: 200% 0;
+    flex-direction: column;
+    height: 100%;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+/* main  */
+section {
+    width: 87%;
+    height: 90vh;
+    border: #000 2px solid;
+    padding: 50px;
+    margin-left: 7%;
+    background-color: #222;
+}
+
+
+.h1 {
+    font-family: nfsmw;
+    font-size: 30px;
+}
+
+.h1 span {
+    line-height: .5em;
+}
+
+/* about section */
+.about {
+    display: block;
+    color:white;
+    background-color: #222;
+}
+
+.about * {
+    margin: auto 0;
+}
+
+.about .kanan, .kirik, .atas {
+    padding: 10px;
+    /* margin: auto; */
+}
+
+.contentabout {
+    display: flex;
+    margin-top: 20vh;
+}
+
+.kanan {
+    grid-area: kanan;
+}
+
+.atas {
+    grid-area: atas;
+    margin: auto 0;
+    height: fit-content;
+    letter-spacing: 2px;
+}
+
+.h2 {
+    display: inline;
+}
+
+
+.kirik {
+    /* margin: auto 0; */
+    grid-area: kiri;
+}
+
+.kirik h1 {
+    font-family: nfsmw;
+    font-size: 50px;
+}
+
+.about p {
+    position: inline;
+}
+
+
+/* skills section */
+
+
+
+
+
+
+
+/* project section */
+
+.projectcontent {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10%;
+    border: #000 solid 1px;
+    height: 50vh;
+}
+
+.logoproject {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border: #000 solid 1px;
+    align-items: center;
+    z-index: 0;
+}
+
+.logoproject * {
+    align-items: baseline;
+}
+
+
+.logoproject:first-child {
+    margin-left: 50%;
+}
+
+
+
+.logoproject:last-child {
+    margin-left: 50%;
+}
+
+
+.tombol {
+    width: 20%;
+    border: #000 solid 1px;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+
+.tombol * {
+    height: auto;
+    font-weight:800;
+    font-size: 50px;
+    opacity: .7;
+    font-weight: bolder;
+    color: orange;
+}
+
+
+.iconproject {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-left: 25%;
+    margin-right: 25px;
+    font-size: larger;
+}
+
+.card * {
+    margin: 10px;
+    /* padding: 10px; */
+    width: 125px;
+    text-align: center;
+}
+
+.pertama {
+    margin: 0;
+    padding: 0;
+}
+
+.isiproject {
+    z-index: 5;
+    width: 100%;
+}
+
+.isiproject *{
+    padding: 30px;
+}
+
+
+
+
+
+
+
+
+/* footerny */
+
+footer {
+    width: 85%;
+    margin-left: 8%;
+    padding: 50px;
+}
+
+
+    /* Keyframe ny */
+
+/* font */
+
+@font-face {
+    font-family: nfsmw;
+    src: url(Font/Mostwasted.ttf);
+}

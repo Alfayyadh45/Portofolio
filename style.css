@@ -1,0 +1,658 @@
+:root {
+    --background-green: rgb(165, 226, 69);
+    --focus-start: rgba(63, 87, 27, 1);
+    --focus-end: rgba(63, 87, 27, 0.5);
+
+    --notif-headline:rgb(45, 45, 45);
+    --notif-contentline:rgb(20, 20, 20);
+
+    --corner-thickness: 0.2rem;
+    --corner-color: #0000 25%, #e27901 0;
+
+    --disabled-thickness: 0.25rem;
+    --disabled-color: #0000 90deg, red 0;
+
+    --left-target: 37.4%;
+}
+
+
+html,
+body {
+    width: 100%;
+    color: white;
+    overflow-x: hidden;
+    font-family: depart;
+    scroll-behavior: smooth;
+    background-color: #222;
+}
+
+body {
+    display: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+/* notif */
+
+.notif {
+    position: fixed;
+    width: 70%;
+    /* background-color: #222; */
+    left: 15%;
+    z-index: 100;
+    /*padding: 2rem;
+    */top: 25%;
+    display: none;
+}
+
+.target{
+    position: fixed;
+    top: 23%;
+    height: 21rem;
+    width: 72%;
+    left: 14%;
+    content: '';
+    background:            conic-gradient(from 90deg at top var(--corner-thickness) left var(--corner-thickness), #0000 25%, #fff 0) 0 0,            conic-gradient(from 180deg at top var(--corner-thickness) right var(--corner-thickness), #0000 25%, #fff 0) 100% 0,            conic-gradient(from 0deg at bottom var(--corner-thickness) left var(--corner-thickness), #0000 25%, #fff 0) 0 100%,            conic-gradient(from -90deg at bottom var(--corner-thickness) right var(--corner-thickness), #0000 25%, #fff 0) 100% 100%;
+    background-size: 2% 4%;
+    background-repeat: no-repeat;
+    animation: notifinout .75s ease-in-out forwards;
+    -webkit-animation: notifinout .75s ease-in-out forwards;
+}
+
+.isinotif {
+    outline: 3px solid #4b4b4b;
+    outline-offset: 3px;
+    animation: notifinout 1s ease-in-out forwards;
+    -webkit-animation: notifinout 1s ease-in-out forwards;
+}
+
+.notifout {
+    animation: notifinout 1s ease-in-out alternate-reverse;
+    -webkit-animation: notifinout 1s ease-in-out alternate-reverse;
+}
+
+.atasnotif {
+    display: flex;
+    border-bottom: #4b4b4b solid 3px;
+    padding: 1rem 1rem;
+    background: repeating-linear-gradient(-45deg,
+        var(--notif-headline),
+        var(--notif-headline) 5%,
+        #000 5%,
+        #000 10%);
+    background-size: 100px 100px;
+    font-family: gtacurly;
+}
+
+.atasnotif h1 {
+    letter-spacing:.25rem;
+    margin-left: 1rem;
+}
+
+.tengahnotif {
+    display: flex;
+    padding: 3rem 1rem;
+    background: repeating-linear-gradient(-45deg,
+                var(--notif-contentline),
+                var(--notif-contentline) 5%,
+                #000 5%,
+                #000 10%);
+    background-size: 100px 100px;
+}
+
+.bawahnotif {
+    border-top: #4b4b4b solid 3px ;
+    display: flex;
+    padding: 1.5rem 1rem;
+    background: repeating-linear-gradient(-45deg,
+                var(--notif-headline),
+                var(--notif-headline) 5%,
+                #000 5%,
+                #000 10%);
+    background-size: 100px 100px;
+    justify-content: end;
+}
+
+.tombolnotif {
+    margin: auto;
+    position: relative;
+    padding: 1rem 6rem;
+    background-color: #4b4b4b;
+    cursor: pointer;
+}
+
+.tombolnotif:focus::before {
+    content: "";
+    z-index: 100;
+    padding: 1rem 6rem;
+    position: absolute;
+    transform: translateX(-44%);
+    width: 3rem;
+    height: 65%;
+    background:            conic-gradient(from 90deg at top var(--corner-thickness) left var(--corner-thickness), var(--corner-color)) 0 0,            conic-gradient(from 180deg at top var(--corner-thickness) right var(--corner-thickness), var(--corner-color)) 100% 0,            conic-gradient(from 0deg at bottom var(--corner-thickness) left var(--corner-thickness), var(--corner-color)) 0 100%,            conic-gradient(from -90deg at bottom var(--corner-thickness) right var(--corner-thickness), var(--corner-color)) 100% 100%;
+    background-size: 10% 25%;
+    background-repeat: no-repeat;
+    bottom: -13%;
+    -webkit-transform: translateX(-44%);
+    -moz-transform: translateX(-44%);
+    -ms-transform: translateX(-44%);
+    -o-transform: translateX(-44%);
+}
+
+.tombolnotif h3 {
+    color: #fff;
+}
+
+.tombolnotif:focus h3 {
+    animation: kedap2notif 1.25s linear infinite;
+        -webkit-animation: kedap2notif 1.25s linear infinite;
+    color: #e27901;
+}
+
+.tombolnotif:focus {
+    outline: none;
+}
+
+.tombolnotif:active {
+    animation: kedaptombolaktip .15s linear infinite;
+    -webkit-animation: kedaptombolaktip .15s linear infinite;
+}
+
+
+.bodycontent {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* bagian header ny */
+
+header {
+    width: 4%;
+    height: 100%;
+    background-color: #000;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    transition: all .75s ease-in-out;
+    -webkit-transition: all .75s ease-in-out;
+    -moz-transition: all .75s ease-in-out;
+    -ms-transition: all .75s ease-in-out;
+    -o-transition: all .75s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+header:hover {
+    width: 9%;
+}
+
+header ul {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    list-style-type: none;
+}
+
+header ul li span {
+    margin: auto;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+}
+
+header:hover ul li span {
+    opacity: 1;
+}
+
+.headericon {
+    width: 3rem;
+    cursor: pointer;
+}
+
+.bawahheader {
+    display: flex;
+    gap: 1rem;
+}
+
+.deleteicon {
+    opacity: 0;
+    transition: all 1s ease-in-out;
+        -webkit-transition: all 1s ease-in-out;
+        -moz-transition: all 1s ease-in-out;
+        -ms-transition: all 1s ease-in-out;
+        -o-transition: all 1s ease-in-out;
+}
+
+header:hover .deleteicon {
+    opacity: 1;
+}
+
+/* main  */
+section {
+    width: 87%;
+    height: 90vh;
+    position: relative;
+    border: #000 2px solid;
+    padding: 35px 50px;
+    margin-left: 6%;
+    background-color: #222;
+}
+
+
+.h1 {
+    font-family: nfsmw;
+    font-size: 30px;
+}
+
+/* about section */
+.about {
+    display: block;
+    color: white;
+    background-color: #222;
+}
+
+.about * {
+    margin: auto 0;
+}
+
+.about .kanan,
+.kirik,
+.atas {
+    padding: 10px;
+    /* margin: auto; */
+}
+
+.contentabout {
+    display: flex;
+    margin-top: 10vh;
+}
+
+.kanan {
+    grid-area: kanan;
+}
+
+.atas {
+    grid-area: atas;
+    margin: auto 0;
+    height: fit-content;
+    letter-spacing: 2px;
+}
+
+.h2 {
+    display: inline;
+}
+
+
+.kirik {
+    position: relative;
+    grid-area: kiri;
+}
+
+.kirik h1 {
+    font-family: nfsmw;
+    font-size: 50px;
+    position: absolute;
+    left: 0;
+    bottom: 10%;
+}
+
+.kirik h6 {
+    position: absolute;
+    left: 0;
+    bottom: 30%;
+}
+
+.about p {
+    position: inline;
+}
+
+
+/* skills section */
+
+
+
+
+
+
+
+/* project section */
+
+.projectcontent {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10%;
+    border: #000 solid 1px;
+    height: 50vh;
+}
+
+.logoproject {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    border: #000 solid 1px;
+    align-items: center;
+    z-index: 0;
+    transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+}
+
+.logoproject * {
+    align-items: baseline;
+}
+
+
+.logoproject:first-child {
+    margin-left: 50%;
+}
+
+
+
+.logoproject:last-child {
+    margin-left: 50%;
+}
+
+
+.tombol {
+    width: 5rem;
+    border: #000 solid 1px;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+
+.tombol * {
+    height: auto;
+    font-weight: 800;
+    font-size: 50px;
+    opacity: .7;
+    font-weight: bolder;
+    color: orange;
+}
+
+
+.iconproject {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-left: 25%;
+    margin-right: 25px;
+    font-size: larger;
+}
+
+.card * {
+    margin: 10px;
+    /* padding: 10px; */
+    width: 125px;
+    text-align: center;
+}
+
+.pertama {
+    margin: 0;
+    padding: 0;
+}
+
+.isiproject {
+    z-index: 5;
+    width: 100%;
+}
+
+.isiproject * {
+    padding: 30px;
+}
+
+/* departemen bokep */
+
+.experience {
+    background-color: #000;
+}
+
+.depart-header {
+    padding-block: 0px;
+    background-color: var(--background-green);
+    margin-top: 1rem;
+    padding: .5em;
+    color: #000;
+}
+
+.depart {
+    border-bottom: 5px dashed var(--background-green);
+}
+
+
+.depart-background {
+    overflow: auto;
+    background: repeating-linear-gradient(-45deg,                var(--focus-start),                var(--focus-start) 5%,                var(--focus-end) 5%,                var(--focus-end) 10%);
+    background-size: 100px 100px;
+    height: 100%;
+    padding: .25em 1em;
+    display: flex;
+    justify-content:space-between ;
+    animation:backgroundmovelinear 2.5s linear infinite ;
+    -webkit-animation:backgroundmovelinear 2.5s linear infinite ;
+}
+
+.departdata {
+    height: 80vh;
+    overflow: auto;
+    scrollbar-color: var(--background-green) black;
+    color: var(--background-green);
+}
+
+.departdata ul {
+    display: flex;
+    flex-direction: column;
+    font-size: large;
+    font-weight: bold;
+}
+
+.departdata ul details {
+    padding: 1rem 1rem;
+    display: grid;
+}
+
+.departdata ul details summary {
+    list-style: none;
+}
+
+.departdata ul details summary::after {
+    background-image:url("data:image/svg+xml,%3Csvgxmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width=' 2' stroke-linecap=' round' stroke-linejoin=' round'%3E%3Cpolyline points=' 6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin-inline-start: calc(1rem * 0.5);
+    float: right;
+    z-index: 10;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    background-position: right center;
+    background-size: 1rem auto;
+    background-repeat: no-repeat;
+    content: "";
+    transition: transform 0.2s ease-in-out;
+    -webkit-transition: transform 0.2s ease-in-out;
+    -moz-transition: transform 0.2s ease-in-out;
+    -ms-transition: transform 0.2s ease-in-out;
+    -o-transition: transform 0.2s ease-in-out;
+}
+
+.departdata ul details[open] > summary::after {
+    transform:rotate(0);
+    -webkit-transform:rotate(0);
+    -moz-transform:rotate(0);
+    -ms-transform:rotate(0);
+    -o-transform:rotate(0);
+}
+
+.departdata ul details:hover:not(:has(li:hover)) {
+    animation: kedap2ijo .75s linear alternate infinite;
+    -webkit-animation: kedap2ijo .75s linear alternate infinite;
+}
+
+.departdata ul details li {
+    padding: 1rem 1rem;
+    list-style-type: none;
+}
+
+.departdata ul details li:hover {
+    animation: kedap2ijo .75s linear alternate infinite;
+    -webkit-animation: kedap2ijo .75s linear alternate infinite;
+}
+
+
+
+
+
+
+/* footerny */
+
+footer {
+    width: 85%;
+    margin-left: 8%;
+    padding: 50px;
+}
+
+
+/* Keyframe ny */
+
+/* animasi */
+
+@keyframes backgroundmovelinear {
+    0% {
+        background-position: initial;
+    }
+
+    100% {
+        background-position: 100px 0px;
+    }
+}
+
+@keyframes kedap2ijo {
+    0% {
+        background-color:var(--focus-start);
+    }
+
+    100% {
+        background-color: var(--focus-end);
+    }
+
+}
+
+@keyframes kedap2notif {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes notifinout {
+    0% {
+        transform: scaleX(0) scaleY(0);
+        -webkit-transform: scaleX(0) scaleY(0);
+        -moz-transform: scaleX(0) scaleY(0);
+        -ms-transform: scaleX(0) scaleY(0);
+        -o-transform: scaleX(0) scaleY(0);
+}
+
+    50% {
+        transform: scaleY(initial);
+        -webkit-transform: scaleY(initial);
+        -moz-transform: scaleY(initial);
+        -ms-transform: scaleY(initial);
+        -o-transform: scaleY(initial);
+}
+
+    75% {
+        transform: scaleX(0);
+        -webkit-transform: scaleX(0);
+        -moz-transform: scaleX(0);
+        -ms-transform: scaleX(0);
+        -o-transform: scaleX(0);
+}
+
+    100% {
+        transform: scaleX(initial);
+        -webkit-transform: scaleX(initial);
+        -moz-transform: scaleX(initial);
+        -ms-transform: scaleX(initial);
+        -o-transform: scaleX(initial);
+}
+}
+
+@keyframes kedaptombolaktip {
+    0% {
+        background-color: #ffa845;
+    }20%{
+        background-color: initial;
+    }40%{
+        background-color: #ffa845;
+    }60% {
+        background-color:initial;
+    }80%{
+        background-color: #ffa845;
+    }100% {
+        background-color: initial;
+    }
+}
+
+
+
+
+/* font */
+
+@font-face {
+    font-family: nfsmw;
+    src: url(Font/Mostwasted.ttf);
+}
+
+@font-face {
+    font-family: depart;
+    src:url(Font/EurostileBold.ttf);
+}
+
+@font-face {
+    font-family:gtacurly;
+    src:url(Font/Canterbury.ttf);
+}
