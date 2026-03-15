@@ -25,7 +25,7 @@ function dapetcok(format) {
 
 function apuscok(isi) {
     
-    dapetcok('');
+    // dapetcok('');
     for (let e = 0; e < isi.length; e++) {
         
         document.cookie = `${isi[e].judul}=${isi[e].value};path=/;max-age=0`;
@@ -35,6 +35,13 @@ function apuscok(isi) {
 }
 
 
+
+// edisounds
+
+const detailssound = 'Sounds/rsheet_open1.wav';
+const selectedsound = 'Sounds/rsheet_sel1.wav';
+const confirmedsound = 'Sounds/rsheet_sel2.wav';
+const notifsound = 'Sounds/notifsound.mp3';
 
 // notif
 const notifdoc = document.querySelector('.notif');
@@ -80,18 +87,31 @@ function munculnotif() {
     setTimeout(() => {
         const tombolnotif = document.querySelectorAll('.tombolnotif');
         notifdoc.style.display = 'block';
+        console.log(tombolnotif);
+        setTimeout(() => {
+            new Audio(notifsound).play();
+        }, 500);
+
+        tombolnotif[0].focus();
 
         if (isiannotif[0].answer.length > 1) {
 
             tombolnotif.forEach( e =>{
 
                 e.style.margin = '0 10px';
+                e.addEventListener('focus', ()=>{
+                    new Audio(selectedsound).play();
+                    e.focus();
+                })
+                
                 e.addEventListener('mouseenter', ()=>{
+                    new Audio(selectedsound).play();
                     e.focus();
                 })
 
                 e.addEventListener('click', ()=>{
 
+                new Audio(notifsound).play();
                 notifdoc.classList.add('notifout');
 
                 if (isiannotif[0].content.includes('Delete')) {
@@ -103,9 +123,14 @@ function munculnotif() {
                         window.location.reload();
                         },1000);
                     }
-                } else {
+
+                } else if (e.getAttribute('value')=='Ok'){
+                    isiannotif.shift();
+
+                }else {
                     savecok(isiannotif[0].about, e.getAttribute('value'))
                     isiannotif.shift();
+
                 }
 
                 setTimeout(()=> {
@@ -134,9 +159,13 @@ function munculnotif() {
                                 window.location.reload();
                                 },1000);
                             }
-                        } else {
+                        }  else if (e.getAttribute('value')=='Ok'){
+                            isiannotif.shift();
+
+                        }else {
                             savecok(isiannotif[0].about, e.getAttribute('value'))
                             isiannotif.shift();
+
                         }
                         setTimeout(()=> {
                             
@@ -160,7 +189,11 @@ function munculnotif() {
                 e.addEventListener('click', (e)=>{
 
                 notifdoc.classList.add('notifout');
-                savecok(isiannotif[0].about, e.getAttribute('value'))
+                new Audio(notifsound).play();
+
+                if (isiannotif[0].about != 'nothing') {
+                    savecok(isiannotif[0].about, e.getAttribute('value'));
+                }
 
                 isiannotif.shift();
                 setTimeout(()=> {
@@ -193,6 +226,7 @@ function munculnotif() {
                 })
 
                 e.addEventListener('mouseenter', ()=>{
+                    new Audio(selectedsound).play();
                     e.focus();
                 })
             })
@@ -210,11 +244,7 @@ window.addEventListener('load',()=>{
 // cek
 
 function cekin(formatcok, nilaitrue) {
-    let notif = true;
-    
-    notif = dapetcok(formatcok);
-
-    if (notif == nilaitrue || notif == null) {   
+    if (dapetcok(formatcok) == nilaitrue || dapetcok(formatcok) == null) {   
         
         document.documentElement.style.overflow = 'hidden';
         bodycontent.style.display = 'none';
@@ -231,12 +261,23 @@ const deletelogo = document.querySelector('.deleteicon');
 
 deletelogo.addEventListener('click',()=>{
 
-    isiannotif.push({
-        title:"Attention",
-        content:"Delete all cookies? (recommended : Yes)",
-        answer:['Yes','No'],
-        about:'disableux',
-    });
+
+    if (dapetcok("disableux")=='No') {
+        isiannotif.push({
+            title:"Attention",
+            content:"You don't have any cookies yet",
+            answer:['Ok'],
+            about:'nothing'
+        })
+    }else {
+        isiannotif.push({
+            title:"Attention",
+            content:"Delete all cookies? (recommended : Yes)",
+            answer:['Yes','No'],
+            about:'disableux',
+        });
+    }
+
     munculnotif();
 
     
@@ -247,36 +288,36 @@ deletelogo.addEventListener('click',()=>{
 
 // 3d model
 
-import * as THREE from './node_modules/three/build/three.module.js';
+// import * as THREE from './node_modules/three/build/three.module.js';
 
-const carspage = document.querySelector('.cars');//deklarasi buat 3d model
+// const carspage = document.querySelector('.cars');//deklarasi buat 3d model
 
 
-const scene = new THREE.Scene();//deklarasi sen/environmentny
-scene.background = new THREE.Color(0xf0f0f0);
+// const scene = new THREE.Scene();//deklarasi sen/environmentny
+// scene.background = new THREE.Color(0xf0f0f0);
 
-const camcar = new THREE.PerspectiveCamera(45, carspage.clientWidth / carspage.clientHeight,1,1000);
-camcar.position.z = 5;
+// const camcar = new THREE.PerspectiveCamera(45, carspage.clientWidth / carspage.clientHeight,1,1000);
+// camcar.position.z = 5;
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(carspage.clientWidth, carspage.clientHeight);
-carspage.appendChild(renderer.domElement);
+// const renderer = new THREE.WebGLRenderer();
+// renderer.setSize(carspage.clientWidth, carspage.clientHeight);
+// carspage.appendChild(renderer.domElement);
 
-//buat bendany
-const geobox = new THREE.BoxGeometry(1,1,1);
-const materialbox = new THREE.MeshBasicMaterial({color: 0x00ff00});
-const box = new THREE.Mesh(geobox,materialbox);
+// //buat bendany
+// const geobox = new THREE.BoxGeometry(1,1,1);
+// const materialbox = new THREE.MeshBasicMaterial({color: 0x00ff00});
+// const box = new THREE.Mesh(geobox,materialbox);
 
-scene.add(box);
+// scene.add(box);
 
-function animate() {
-    requestAnimationFrame(animate);
-    box.rotation.x += 0;
-    box.rotation.y += 0.01;
-    renderer.render(scene,camcar);
-}
+// function animate() {
+//     requestAnimationFrame(animate);
+//     box.rotation.x += 0;
+//     box.rotation.y += 0.01;
+//     renderer.render(scene,camcar);
+// }
 
-animate();
+// animate();
 
 
 
@@ -322,7 +363,7 @@ const databaseImg = [
     judul: 'Galeri Lightbox'
 },
 {
-    url: 'img/mediumwebsite.png',
+    url: 'Img/.png',
     judul: 'Tokisaki Kurumi'
 },
 {
@@ -342,8 +383,8 @@ const databaseImg = [
 // deklarasi :
 const pprojcontent = document.querySelector('div.isiproject');
 const logoprojcontent = document.querySelector('div.logoproject');
-const next = document.querySelector('div.lanjut');
-const previous = document.querySelector('div.mundur');
+const next = document.querySelector('div.lanjutproj');
+const previous = document.querySelector('div.mundurproj');
 let noproj = 0;
 let detailproj;
 
@@ -409,7 +450,58 @@ previous.addEventListener('click', ()=> {
 
 
 // data exp
-var expdata = [];
-function listdatafold(name,link) {
-    return `<li class="departdata-list" link="${link}"><span class="departdata-listcontent">${name}</span></li>`
+var expdata = {
+    "IDENTITAS":[{
+        "MUKA":"GANTENG",
+        "OTOT":"GEDE"
+    }],
+    "HARGA DIRI":[{
+        "STATUS":"MSH AD",
+        "ISTRI":"ALYA-CHAN"
+    }]
+};
+const departdom = document.querySelector('.departdata ul');
+
+
+let bnr2isiandepart = '';
+function listdatafold(name, val) {
+    return `<li class="departdata-list" link="${name}"><span class="departdata-listcontent">${name}</span><input class="departvalue" value="${val}" name="${name}" id="${name}" disabled/></li>`
 }
+
+
+for (const f in expdata) {
+    let isidepartfold = '';
+
+    isidepartfold += `<details>
+            <summary>${f}</summary>`
+
+    expdata[f].forEach(l => {
+        for (const y in l) {
+        isidepartfold += listdatafold(y, l[y]);
+    }
+    });
+
+    isidepartfold += '</details>'
+    bnr2isiandepart += isidepartfold;
+}
+
+departdom.innerHTML = bnr2isiandepart;
+
+// console.log(bnr2isiandepart);
+
+
+// sounddepart
+
+document.querySelectorAll('.departdata details').forEach(e => {
+    e.addEventListener('mouseover',()=>{
+        new Audio(selectedsound).play();
+    })
+})
+
+document.querySelectorAll('.departdata details').forEach(e =>{
+    e.addEventListener('click',()=>{
+        new Audio(detailssound).play();
+    })
+})
+
+
