@@ -17,10 +17,10 @@
     --left-target: 37.4%;
     interpolate-size: allow-keywords;
 }
-
+/* 
 img {
-    user-select: none;
-}
+    pointer-events: none;
+} */
 
 
 html,
@@ -31,6 +31,8 @@ body {
     font-family: depart;
     scroll-behavior: smooth;
     background-color: #222;
+    scrollbar-width: thin;
+    user-select: none;
 }
 
 body {
@@ -42,7 +44,7 @@ body {
     padding: 0;
 }
 
-a{
+a {
     text-decoration: none;
     color: white;
 }
@@ -179,6 +181,7 @@ a{
 .bodycontent {
     width: 100%;
     height: 100%;
+    overflow: visible;
 }
 
 
@@ -311,6 +314,10 @@ header:hover .deleteicon {
     opacity: 1;
 }
 
+.divsongs {
+
+}
+
 /* main  */
 section {
     width: 87%;
@@ -326,6 +333,7 @@ section {
 .h1 {
     font-family: nfsmw;
     font-size: 30px;
+    position: relative  ;
 }
 
 /* about section */
@@ -336,7 +344,7 @@ section {
 }
 
 .about::before {
-    background-image: url('Img/images.jpeg');
+    background-image: url('Img/backcity2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -346,8 +354,8 @@ section {
     top: 0;
     left: 0;
     box-shadow: inset 0 0 10rem rgba(0, 0, 0, 1);
-    filter: sepia(1) brightness(.6) hue-rotate(60deg);
-    -webkit-filter: sepia(1) brightness(.6) hue-rotate(60deg);
+    filter: sepia(1) brightness(.6);
+    -webkit-filter: sepia(1) brightness(.6);
 }
 
 .about * {
@@ -376,7 +384,6 @@ section {
     margin: auto 0;
     height: fit-content;
     letter-spacing: 2px;
-    position: relative;
 }
 
 .h2 {
@@ -411,6 +418,7 @@ section {
 
 .imgmuka {
     width: 14rem;
+    pointer-events: none;
 }
 
 .about p {
@@ -494,6 +502,22 @@ section {
 
 /* project section */
 
+.project::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('Img/backcity1.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 -1000;
+    box-shadow: inset 0 0 10rem rgba(0, 0, 0, 1);
+    filter: sepia(1) brightness(.5);
+    -webkit-filter: sepia(1) brightness(.5);
+}
+
 .projectcontent {
     display: flex;
     flex-direction: row;
@@ -546,79 +570,105 @@ section {
     position: relative;
 }
 
-.mundurproj::before,
-.mundurproj::after {
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    margin-inline-start: 10px;
-    background-position: right center;
-    background-size: 1rem auto;
-    background-repeat: no-repeat;
-    content: "";
-    transition: transform 0.2s ease-in-out;
-    -webkit-transition: transform 0.2s ease-in-out;
-    -moz-transition: transform 0.2s ease-in-out;
-    -ms-transition: transform 0.2s ease-in-out;
-    -o-transition: transform 0.2s ease-in-out;
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
+.mundurproj svg {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: inline-block;
+    transition: all .1s ease-in-out;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
 }
+
+.mundurproj svg path {
+    top: 100%;
+    position: absolute;
+    display: inline-block;
+    fill: #e27901;
+
+    transform:translate(0,0)scale(.05);
+    -webkit-transform:translate(0,0)scale(.05);
+    -moz-transform:translate(0,0)scale(.05);
+    -ms-transform:translate(0,0)scale(.05);
+    -o-transform:translate(0,0)scale(.05);
+}
+
+.mundurproj svg:first-child {
+    transform: translateX(10px) scale(1.1) rotate(180deg);
+    -webkit-transform: translateX(10px) scale(1.1) rotate(180deg);
+    -moz-transform: translateX(10px) scale(1.1) rotate(180deg);
+    -ms-transform: translateX(10px) scale(1.1) rotate(180deg);
+    -o-transform: translateX(10px) scale(1.1) rotate(180deg);
+}
+
+.mundurproj svg:last-child {
+    transform: translateX(-5px) scale(1.1) rotate(180deg);
+    -webkit-transform: translateX(-5px) scale(1.1) rotate(180deg);
+    -moz-transform: translateX(-5px) scale(1.1) rotate(180deg);
+    -ms-transform: translateX(-5px) scale(1.1) rotate(180deg);
+    -o-transform: translateX(-5px) scale(1.1) rotate(180deg);
+
+    animation: kedap2proj 2s alternate-reverse infinite ease-in-out;
+        -webkit-animation: kedap2proj 2s alternate-reverse infinite ease-in-out;
+}
+
+.mundurproj svg:last-child path {
+    fill:#fff;
+}
+
 
 /* .mundurproj::after {
     background-image: url("data: image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='10' stroke-linecap='square' stroke-linejoin='square' %3E%3Cpolyline points='6 9 12 15 18 9' %3E%3C/polyline%3E%3C/svg%3E");
 } */
 
-.mundurproj::before {
-    background-image: url("data: image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 150, 25)' stroke-width='10' stroke-linecap='square' stroke-linejoin='square' %3E%3Cpolyline points='6 9 12 15 18 9' %3E%3C/polyline%3E%3C/svg%3E");
+.lanjutproj svg {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    transition: all .1s ease-in-out;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -ms-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
 }
 
-.lanjutproj::before,
-.lanjutproj::after {
-    display: block;
-    width: 10rem;
-    padding: 2rem;
-    height: 10rem;
-    margin: 0;
-    /* margin-inline-start: 10px; */
-    background-position: center;
-    background-size: 3rem 3rem;
-    background-repeat: no-repeat;
-    content: "";
-    transition: transform 0.2s ease-in-out;
-    -webkit-transition: transform 0.2s ease-in-out;
-    -moz-transition: transform 0.2s ease-in-out;
-    -ms-transition: transform 0.2s ease-in-out;
-    -o-transition: transform 0.2s ease-in-out;
-    transform: rotate(-90deg);
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
+.lanjutproj svg:first-child path {
+    fill:#fff;
 }
 
-.mundurproj::after {
-    /* ... properti lain ... */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ccaa00' stroke-width='7' stroke-linecap='square' stroke-linejoin='square'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+.lanjutproj svg:first-child {
+    transform: translateX(10px) scale(1.1);
+    -webkit-transform: translateX(10px) scale(1.1);
+    -moz-transform: translateX(10px) scale(1.1);
+    -ms-transform: translateX(10px) scale(1.1);
+    -o-transform: translateX(10px) scale(1.1);
+
+    animation: kedap2proj 2s ease-in-out alternate-reverse infinite;
+        -webkit-animation: kedap2proj 2s ease-in-out alternate-reverse infinite;
 }
 
-.lanjutproj::after {
-    background-image: url("data: image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='500' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 150, 25)' stroke-width='10' stroke-linecap='square' stroke-linejoin='square' %3E%3Cpolyline points='6 9 12 15 18 9' %3E%3C/polyline%3E%3C/svg%3E");
+.lanjutproj svg:last-child {
+    transform: translateX(-5px) scale(1.1);
+    -webkit-transform: translateX(-5px) scale(1.1);
+    -moz-transform: translateX(-5px) scale(1.1);
+    -ms-transform: translateX(-5px) scale(1.1);
+    -o-transform: translateX(-5px) scale(1.1);
 }
 
-.lanjutproj::before {
-    background-image: url("data: image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' width='2000' height='1000' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='10' stroke-linecap='square' stroke-linejoin='square' %3E%3Cpolyline points='6 9 12 15 18 9' %3E%3C/polyline%3E%3C/svg%3E");
+.lanjutproj svg path {
+    top: 100%;
+    position: absolute;
+    display: inline-block;
+    fill: #e27901;
+
+    transform:translate(0,0)scale(.05);
+    -webkit-transform:translate(0,0)scale(.05);
+    -moz-transform:translate(0,0)scale(.05);
+    -ms-transform:translate(0,0)scale(.05);
+    -o-transform:translate(0,0)scale(.05);
 }
-
-
-
-
-
-
-
 
 .iconproject {
     height: 100%;
@@ -635,6 +685,7 @@ section {
     margin-left: 25%;
     margin-right: 25px;
     font-size: larger;
+    pointer-events: none;
 }
 
 .card * {
@@ -833,7 +884,7 @@ footer {
     }
 
     50% {
-        opacity: 1;
+        opacity: initial;
     }
 
     100% {
@@ -951,7 +1002,10 @@ footer {
     }
 }
 
-
+@keyframes kedap2proj {
+    0%, 100% {opacity: .7;}
+    50% {opacity: .1;}
+}
 
 
 

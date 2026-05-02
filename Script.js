@@ -2,8 +2,8 @@
 let cookies = [];
 
 
-function savecok(judul,value) {
-            document.cookie = `${judul}=${value};path=/;max-age=999999999`;
+function savecok(judul,value,expired) {
+            document.cookie = `${judul}=${value};path=/;max-age=${expired}`;
             cookies.push({judul, value});
         }
 
@@ -11,9 +11,11 @@ function savecok(judul,value) {
 function dapetcok(format) {
     if (document.cookie) {
         const cok = document.cookie.split(';');
+
         for(let m of cok){
             let [judul, value] = m.split('=');
             cookies.push({judul,value})
+
             if(judul == format){
                 return value;
             }
@@ -34,14 +36,85 @@ function apuscok(isi) {
     window.location.reload();
 }
 
+// pengaturan svg
+
+jQuery('img').each(function () {
+	const $img = jQuery(this);
+	const imgID = $img.attr('id');
+	const imgClass = $img.attr('class');
+	const imgURL = $img.attr('src');
+	jQuery.get(
+		imgURL,
+		(data) => {
+		    let $svg = jQuery(data).find('svg');
+			if (imgID) $svg.attr('id', imgID);
+			if (imgClass) $svg.attr('class', `${imgClass} replaced-svg`);
+			$svg.removeAttr('xmlns:a');
+			$img.replaceWith($svg);
+		},'xml',
+	);
+});
 
 
 // edisounds
 
-const detailssound = 'Sounds/rsheet_open1.wav';
-const selectedsound = 'Sounds/rsheet_sel1.wav';
-const confirmedsound = 'Sounds/rsheet_sel2.wav';
+const detailssound = 'Sounds/rsheet_open1.mp3';
+const selectedsound = 'Sounds/rsheet_sel1.mp3';
+const confirmedsound = 'Sounds/rsheet_sel2.mp3';
 const notifsound = 'Sounds/notifsound.mp3';
+const arrowsound = 'Sounds/arrowsound.mp3';
+
+// edisongs
+var playlist = ['dQw4w9WgXcQ'];
+var player;
+var diplaylist = 0;
+
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+function onYouTubeIframeAPIReady() {
+    console.log('alamak');
+    player = new YT.Player('player', {
+        // Disarankan minimal 200x200 agar tidak error
+        height: '270', 
+        width: '480',
+        videoId: playlist[diplaylist],
+        playerVars: {
+            'start': 0, 
+            'end': 60,
+            'mute': 1,
+            'playsinline': 1 // Penting untuk perangkat mobile
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    // Mulai putar otomatis saat siap
+    event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+    // YT.PlayerState.ENDED akan terpicu saat video mencapai 'endSeconds'
+    if (event.data === YT.PlayerState.ENDED) {
+        nextTrack();
+    }
+}
+
+function nextTrack() {
+    diplaylist = (diplaylist + 1) % playlist.length;
+    player.loadVideoById({
+        videoId: playlist[diplaylist],
+        startSeconds: 0,
+        endSeconds: 60
+    });
+}
+
 
 // notif
 const notifdoc = document.querySelector('.notif');
@@ -89,7 +162,9 @@ function munculnotif() {
         notifdoc.style.display = 'block';
         console.log(tombolnotif);
         setTimeout(() => {
-            new Audio(notifsound).play();
+            var sounnotif = new Audio(notifsound);
+            sounnotif.volume = .5;
+            sounnotif.play();
         }, 500);
 
         tombolnotif[0].focus();
@@ -100,24 +175,30 @@ function munculnotif() {
 
                 e.style.margin = '0 10px';
                 e.addEventListener('focus', ()=>{
-                    new Audio(selectedsound).play();
+                    var sound = new Audio(selectedsound);
+                    sound.volume = .3;
+                    sound.play();
                     e.focus();
                 })
                 
                 e.addEventListener('mouseenter', ()=>{
-                    new Audio(selectedsound).play();
+                    var sound = new Audio(selectedsound);
+                    sound.volume = .3;
+                    sound.play();
                     e.focus();
                 })
 
                 e.addEventListener('click', ()=>{
 
-                new Audio(notifsound).play();
+                // player.playVideo();
+                var sounnotif = new Audio(notifsound);
+                sounnotif.play();
                 notifdoc.classList.add('notifout');
 
                 if (isiannotif[0].content.includes('Delete')) {
                     
                     if (e.getAttribute('value') == 'Yes') {
-                        savecok(isiannotif[0].about, 'No')
+                        savecok(isiannotif[0].about, '', 0)
 
                         setTimeout(()=> {
                         window.location.reload();
@@ -128,7 +209,7 @@ function munculnotif() {
                     isiannotif.shift();
 
                 }else {
-                    savecok(isiannotif[0].about, e.getAttribute('value'))
+                    savecok(isiannotif[0].about, e.getAttribute('value'), 9999999)
                     isiannotif.shift();
 
                 }
@@ -153,7 +234,7 @@ function munculnotif() {
                         if (isiannotif[0].content.includes('Delete')) {
                             
                             if (e.getAttribute('value') == 'Yes') {
-                                savecok(isiannotif[0].about, 'No')
+                                savecok(isiannotif[0].about, '', 0)
 
                                 setTimeout(()=> {
                                 window.location.reload();
@@ -163,7 +244,7 @@ function munculnotif() {
                             isiannotif.shift();
 
                         }else {
-                            savecok(isiannotif[0].about, e.getAttribute('value'))
+                            savecok(isiannotif[0].about, e.getAttribute('value'), 99999999)
                             isiannotif.shift();
 
                         }
@@ -189,10 +270,11 @@ function munculnotif() {
                 e.addEventListener('click', (e)=>{
 
                 notifdoc.classList.add('notifout');
-                new Audio(notifsound).play();
+                var sounnotif = new Audio(notifsound);
+                sounnotif.play();
 
                 if (isiannotif[0].about != 'nothing') {
-                    savecok(isiannotif[0].about, e.getAttribute('value'));
+                    savecok(isiannotif[0].about, e.getAttribute('value'), 999999);
                 }
 
                 isiannotif.shift();
@@ -207,15 +289,18 @@ function munculnotif() {
         
                 }),
             
-                e.addEventListener('keypress', function(event) {
+                e.addEventListener('keydown', function(event) {
 
                     if (event.key == 'Enter') {
                         notifdoc.classList.add('notifout');
-                        savecok(isiannotif[0].about, e.getAttribute('value'));
+                        var sounnotif = new Audio(notifsound);
+                        sounnotif.play();
+
+                        savecok(isiannotif[0].about, e.getAttribute('value'), 999999);
                         isiannotif.shift();
+                        
 
                         setTimeout(()=> {
-                            
                             notifdoc.style.display = 'none';
                             notifdoc.classList.remove('notifout');
                             document.documentElement.style.overflow = 'auto';
@@ -226,7 +311,9 @@ function munculnotif() {
                 })
 
                 e.addEventListener('mouseenter', ()=>{
-                    new Audio(selectedsound).play();
+                    var sound = new Audio(selectedsound);
+                    sound.volume = .3;
+                    sound.play();
                     e.focus();
                 })
             })
@@ -350,7 +437,7 @@ window.onbeforeunload = () => {
 
 
 
-    
+
 // project cards :
 // data IMG :
 const databaseImg = [
@@ -419,16 +506,23 @@ munculpproj(detailproj);
 
 
 function majuproj() {
-    if (noproj==(databaseImg.length-1)) {
-        return 0;
-    } else {
-        noproj++;
-    }
+    if (noproj==(databaseImg.length-1)) 
+        {return 0;} else {noproj++;}
 
     logoprojcontent.style.transform = `translatex(calc(${noproj}*-78%))`;
 }
 
 next.addEventListener('click', ()=>{
+    next.lastElementChild.style.transform = 'translateX(20px) scale(1.1)';
+    
+    // suarany mas
+    var suara = new Audio(arrowsound);
+    suara.play();
+
+    setTimeout(() => {
+        next.lastElementChild.style.transform = 'translateX(-5px) scale(1.1)';
+    }, 100)
+
     majuproj();
 })
 
@@ -436,15 +530,22 @@ next.addEventListener('click', ()=>{
 function mundur() {
     if (noproj==0) {
         noproj == (databaseImg.length - 1) ;
-        console.log('ajg')
-    } else {
-        noproj--;
-    }
+    } else {noproj--;}
 
     logoprojcontent.style.transform = `translatex(${noproj*-80}%)`;
 }
 
 previous.addEventListener('click', ()=> {
+    previous.firstElementChild.style.transform = 'translateX(-20px) scale(1.1) rotate(180deg)';
+    
+    // suarany mas
+    var suara = new Audio(arrowsound);
+    suara.play();
+
+    setTimeout(() => {
+        previous.firstElementChild.style.transform = 'translateX(10px) scale(1.1) rotate(180deg)';
+    }, 100)
+
     mundur();
 })
 
@@ -494,11 +595,13 @@ departdom.innerHTML = bnr2isiandepart;
 
 document.querySelectorAll('.departdata details').forEach(e => {
     e.addEventListener('mouseover',()=>{
-        new Audio(selectedsound).play();
+        var sound = new Audio(selectedsound);
+        sound.volume = .3;
+        sound.play();
     })
 })
 
-document.querySelectorAll('.departdata details').forEach(e =>{
+document.querySelectorAll('.departdata details summary').forEach(e =>{
     e.addEventListener('click',()=>{
         new Audio(detailssound).play();
     })
