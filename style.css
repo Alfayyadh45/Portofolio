@@ -22,17 +22,15 @@ img {
     pointer-events: none;
 } */
 
-
 html,
 body {
     width: 100%;
     color: white;
-    overflow-x: hidden;
     font-family: depart;
-    scroll-behavior: smooth;
     background-color: #222;
-    scrollbar-width: thin;
     user-select: none;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 body {
@@ -319,14 +317,77 @@ header:hover .deleteicon {
 }
 
 /* main  */
+main {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
 section {
-    width: 87%;
-    height: 90vh;
-    position: relative;
-    border: #000 2px solid;
-    padding: 35px 50px;
-    margin-left: 6%;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    flex-shrink: 0;
+    box-sizing: border-box;
     background-color: #222;
+}
+
+.gambarkey {
+    border: #fff solid 2px;
+    margin: .15rem .6rem;
+    padding: .25rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.quitmenu:hover .gambarkey {
+    color: var(--warna-emas);
+    border: var(--warna-emas) solid 2px;
+}
+
+.quitmenu:focus .gambarkey {
+    color: var(--warna-emas);
+    border: var(--warna-emas) solid 2px;
+}
+
+.quitmenu {
+    display: flex;
+    background-color: #000;
+    margin-left: 5%;
+    border: #000 solid 2px;
+    width: fit-content;
+}
+
+.quitmenu h3 {
+    padding: .4rem 1rem;
+    display: block;
+    background: repeating-linear-gradient(-45deg, #333, #333 5%, #111 5%, #111 10%);
+        background-size: 150px 150px;
+}
+
+.quitmenu:focus h3 {
+    color: var(--warna-emas);
+
+    background: repeating-linear-gradient(-45deg, #934e0070, #934e0070 5%, #050300 5%, #050300 10%);
+    background-size: 150px 150px;
+    animation: backgroundmovelinear 5s linear infinite;
+        -webkit-animation: backgroundmovelinear 5s linear infinite;
+}
+
+.quitmenu:hover  h3{
+    color: var(--warna-emas);
+
+    background: repeating-linear-gradient(-45deg, #934e0070, #934e0070 5%, #050300 5%, #050300 10%);
+    background-size: 150px 150px;
+    animation: backgroundmovelinear 5s linear infinite;
+        -webkit-animation: backgroundmovelinear 5s linear infinite;
 }
 
 
@@ -343,24 +404,9 @@ section {
     position: relative;
 }
 
-.about::before {
-    background-image: url('Img/backcity2.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    box-shadow: inset 0 0 10rem rgba(0, 0, 0, 1);
-    filter: sepia(1) brightness(.6);
-    -webkit-filter: sepia(1) brightness(.6);
-}
-
-.about * {
+/* .about * {
     margin: auto 0;
-}
+} */
 
 .about .kanan,
 .kirik,
@@ -502,7 +548,7 @@ section {
 
 /* project section */
 
-.project::before {
+/* .project::before {
     content: '';
     width: 100%;
     height: 100%;
@@ -516,7 +562,7 @@ section {
     box-shadow: inset 0 0 10rem rgba(0, 0, 0, 1);
     filter: sepia(1) brightness(.5);
     -webkit-filter: sepia(1) brightness(.5);
-}
+} */
 
 .projectcontent {
     display: flex;
